@@ -1,7 +1,8 @@
-var fs = require('fs');
+const fs = require('fs');
 rand = n => {
 	o='';
-	for(i=0;i<n;i++)o+=String.fromCharCode(~~(222*Math.random()) + 32); 
+	for(let i=0;i<n;i++)
+		o+=String.fromCharCode(~~(62*Math.random()) + 65); 
 	return o
 }; 
 let f = fs.createWriteStream('file.txt');
