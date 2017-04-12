@@ -15,11 +15,10 @@ var ds = new saltpack.stream.DecryptStream({decryptor: bob, do_armoring: true})
 es.on('error', function (err) { throw err; })
 ds.on('error', function (err) { throw err; })
 
-var time;
-
-es.once('data', () => time = mt.now() );
-ds.once('close', () => time = mt.now() - time );
+es.once('data', () => {time = mt.now()});
+es.once('end', () => { time = mt.now() - time; fs.appendFile('data.txt', time + "\n");});
 
 process.stdin.pipe(es)
 es.pipe(ds.first_stream);
-ds.pipe(process.stdout);
+ds.pipe(fs.createWriteStream("file.out.txt"));
+
